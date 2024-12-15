@@ -4,7 +4,7 @@ from scipy.stats import mannwhitneyu
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("DATASET_CLEAN.csv")
+df = pd.read_csv("../datasets/ds_clean.csv")
 
 # Фильтрация вакансий в сфере IT
 df = df[df['industry_id_list'].str.contains('7', na=False)]
