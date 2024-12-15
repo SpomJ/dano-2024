@@ -30,7 +30,7 @@ print(f'U-test p-value: {p_value}')
 # Визуализация
 # Боксплоты числа откликов по типу графика работы
 sns.boxplot(x='is_flexible_schedule', y='response_count', data=df, palette='Set2', showfliers=False)
-plt.xticks([0, 1], ['Неудобный график', 'Удобный график'])
+plt.xticks([0, 1], ['Негибкий график', 'Гибкий график'])
 plt.title('Сравнение числа откликов по графику работы')
 plt.xlabel('Тип графика работы')
 plt.ylabel('Число откликов')
