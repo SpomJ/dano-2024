@@ -39,8 +39,8 @@ graph_data = pd.DataFrame({
 })
 
 sns.barplot(data=graph_data, x='Category', y='Ratio', palette='muted')
-plt.title('Отношение средних откликов на вакансии с гибким к без гибкому')
-plt.ylabel('Отношение средних откликов')
+plt.title('Отношение медиан откликов на вакансии с гибким к без гибкому')
+plt.ylabel('Отношение медиан откликов')
 plt.xlabel('Категория откликов')
 plt.ylim(0, max(graph_data['Ratio']) * 1.2)
 plt.show()
