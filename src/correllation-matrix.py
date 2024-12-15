@@ -4,7 +4,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 
 # Загрузка датасета
-df = pd.read_csv("..\datasets\ds_clean.csv", encoding="utf-8", delimiter=",")
+df = pd.read_csv("../datasets/ds_clean.csv", encoding="utf-8", delimiter=",")
 
 # Выбор числовых столбцов для корреляции
 correlation_columns = [
@@ -12,8 +12,8 @@ correlation_columns = [
     "male_response_count",
     "female_response_count",
     "young_response_count",
-    "employees_number",
     "invitation_count",
+    "employees_number",
     "compensation_from",
     "compensation_to",
 ]
@@ -31,8 +31,8 @@ new_column_names = [
     "число откликов от мужчин",
     "число откликов от женщин",
     "число откликов от соискателей 14–18 лет",
-    "численность штата работодателя",
     "число всех приглашений",
+    "численность штата работодателя",
     "минимальная зарплата",
     "максимальная зарплата"
 ]
@@ -54,4 +54,3 @@ plt.title("Матрица корреляции")
 plt.xticks(rotation=45, ha='right', rotation_mode="anchor")
 plt.tight_layout()
 plt.show()
-
