@@ -1,29 +1,25 @@
-import pandas as pd
+import pandas as pd 
 import numpy as np
-from scipy.stats import ttest_ind, levene
+from scipy.stats import mannwhitneyu
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("../datasets/ds_clean.csv")
+df = pd.read_csv("DATASET_CLEAN.csv")
 
-# Фильтрация вакансий в розничной торговле
+# Фильтрация вакансий в сфере IT
 df = df[df['industry_id_list'].str.contains('7', na=False)]
 
+# Определяем гибкие графики
 convenient_schedules = ['flexible']
 df['is_flexible_schedule'] = df['work_schedule'].isin(convenient_schedules)
 
+# Разделение данных на гибкие и негибкие графики
 flexible = df[df['is_flexible_schedule'] == True]['response_count']
 not_flexible = df[df['is_flexible_schedule'] == False]['response_count']
 
-print(flexible.count())
-print(not_flexible.count())
-# Проверка равенства дисперсий (тест Левена)
-stat, p_levene = levene(flexible, not_flexible)
-print(f'Levene test p-value: {p_levene}')
-
-# Тест Уэлча
-stat, p_value = ttest_ind(flexible, not_flexible, equal_var=(p_levene >= 0.05))
-print(f'T-test p-value: {p_value}')
+# Тест Манна-Уитни
+stat, p_value = mannwhitneyu(flexible, not_flexible, alternative='two-sided')
+print(f'Mann-Whitney U test p-value: {p_value}')
 
 # Визуализация
 # Боксплоты числа откликов по типу графика работы
