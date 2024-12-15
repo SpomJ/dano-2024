@@ -2,8 +2,8 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-# Загрузка датасета (замените 'file_path.csv' на путь к вашему файлу)
-data = pd.read_csv('..datasets/ds_clean.csv')
+
+data = pd.read_csv('../datasets/ds_clean.csv')
 
 data['industry_id_list'] = data['industry_id_list'].apply(eval)
 
@@ -17,9 +17,9 @@ non_flexible_data = it_data[it_data['work_schedule'] != 'flexible']
 
 # Вычисляем средние отклики для каждой группы
 ratios = {
-    'Male': flexible_data['male_response_count'].mean() / non_flexible_data['male_response_count'].mean(),
-    'Female': flexible_data['female_response_count'].mean() / non_flexible_data['female_response_count'].mean(),
-    'Teenagers': flexible_data['young_response_count'].mean() / non_flexible_data['young_response_count'].mean() ,
+    'Мужчины': flexible_data['male_response_count'].median() / non_flexible_data['male_response_count'].median(),
+    'Женщины': flexible_data['female_response_count'].median() / non_flexible_data['female_response_count'].median(),
+    'Подростки (14-18 лет)': flexible_data['young_response_count'].median() / 1 ,
 }
 
 graph_data = pd.DataFrame({
