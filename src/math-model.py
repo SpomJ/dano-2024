@@ -1,32 +1,24 @@
 import pandas as pd
 import numpy as np
-from scipy.stats import levene, mannwhitneyu, shapiro
+from scipy.stats import levene, ttest_ind
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-df = pd.read_csv(r"C:\Users\ВЛАДИМИР\Documents\DATASET_CLEAN.csv")
+df = pd.read_csv("../datasets/ds_clean.csv")
 
 # Фильтрация вакансий в розничной торговле
-df = df[df['industry_id_list'].str.contains('7', na=False)]
+df = df[df['industry_id_list'].apply(eval).apply(lambda x: 7 in x)]
 
 flexible = df[df['is_flexible_schedule'] == True]['response_count']
 not_flexible = df[df['is_flexible_schedule'] == False]['response_count']
-
 
 # Проверка равенства дисперсий (тест Левена)
 stat, p_levene = levene(flexible, not_flexible)
 print(f'Levene test p-value: {p_levene}')
 
 
-p_shapiro_flex = shapiro(flexible)
-p_shapiro_no_flex = shapiro(not_flexible)
-
-print("\nПроверка нормальности:")
-print("p-value (гибкий график):", p_shapiro_flex)
-print("p-value (без гибкого графика):", p_shapiro_no_flex)
-
-# Тест Манна-Уитни
-stat, p_value = mannwhitneyu(flexible, not_flexible)
+# Тест Уэлча
+stat, p_value = ttest_ind(flexible, not_flexible, equal_var=(p_levene >= 0.05))
 print(f'T-test p-value: {p_value}')
 
 # Визуализация
